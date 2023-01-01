@@ -16,8 +16,8 @@ func NewTestController() *TestController {
 func (c *TestController) Index(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 200,
-		"msg":  "success",
-		"data": nil,
+		"msg":  "test",
+		"data": "index",
 	})
 }
 

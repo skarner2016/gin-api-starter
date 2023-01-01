@@ -1,0 +1,15 @@
+appName = "gogogo"
+addr="0.0.0.0:8008"
+mode="debug"
+
+[mysql.default]
+host = "127.0.0.1"
+port = 3306
+user = "root"
+pass = "123456"
+database = "go-api"
+charset = "utf8mb4"
+collation = "utf8mb4_general_ci"
+maxidleconns = 10
+maxopenconns = 100
+connmaxlifetime = 60

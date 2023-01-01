@@ -1,22 +1,26 @@
 package main
 
 import (
-	"skarner2016/gin-api-starter/controller"
+	"io"
+	"os"
+	"skarner2016/gin-api-starter/packages/config"
+	"skarner2016/gin-api-starter/router"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	r := gin.Default()
-	r = InitRouter(r)
+	config.SetupConfig()
 
-	r.Run()
-}
+	mode := config.APPConfig.GetString("mode")
+	gin.SetMode(mode)
 
-func InitRouter(r *gin.Engine) *gin.Engine {
-	testController := controller.NewTestController()
-	r.GET("api/test", testController.Index)
-	r.GET("api/test/redirect", testController.Redirect)
+	f, _ := os.Create("gin.log")
+	// gin.DefaultWriter = io.MultiWriter(f)
+	gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
 
-	return r
+	router := router.SetupRouter()
+
+	addr := config.APPConfig.GetString("addr")
+	router.Run(addr)
 }
