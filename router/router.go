@@ -21,6 +21,7 @@ func SetupRouter() *gin.Engine {
 	{
 		testController := controller.NewTestController()
 		test.GET("", testController.Index)
+		test.GET("/user", testController.User)
 	}
 
 	return r

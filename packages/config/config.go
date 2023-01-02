@@ -9,7 +9,7 @@ import (
 
 var APPConfig *viper.Viper
 
-func SetupConfig() {
+func Setup() {
 	if APPConfig != nil {
 		return
 	}

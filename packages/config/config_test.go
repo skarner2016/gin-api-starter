@@ -8,7 +8,7 @@ import (
 
 func TestGetAddr(t *testing.T) {
 
-	config.SetupConfig()
+	config.Setup()
 
 	addr := config.APPConfig.Get("addr")
 
