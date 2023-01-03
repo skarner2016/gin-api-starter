@@ -18,7 +18,7 @@ type User struct {
 func TestConnectDB(t *testing.T) {
 	config.Setup()
 
-	db := mysql.GetDB()
+	db := mysql.GetDB(mysql.InstanceDefault)
 
 	user := &User{}
 	err := db.Limit(1).Find(&user).Error
@@ -32,7 +32,7 @@ func TestConnectDB(t *testing.T) {
 func TestMigrat(t *testing.T) {
 	config.Setup()
 
-	db := mysql.GetDB()
+	db := mysql.GetDB(mysql.InstanceDefault)
 
 	db.AutoMigrate(
 		&models.User{},
