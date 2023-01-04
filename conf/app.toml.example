@@ -13,3 +13,20 @@ collation = "utf8mb4_general_ci"
 maxidleconns = 20
 maxopenconns = 100
 connmaxlifetime = 60
+
+[redis.default]
+host = "127.0.0.1"
+port = 6379
+pass = ""
+db = 0
+
+[log.default]
+level = "debug"
+path = "storage/logs"
+file = "default.log"
+maxSize = 50
+maxAge = 30
+maxBackup = 5
+localTime = true
+compress = true
+
