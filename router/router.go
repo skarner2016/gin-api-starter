@@ -10,7 +10,10 @@ import (
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
-	r.Use(middleware.CORSMiddleware(), middleware.RecoveryMiddleware())
+	r.Use(
+		// middleware.CORSMiddleware(),
+		middleware.RecoveryMiddleware(),
+	)
 
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())

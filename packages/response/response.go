@@ -6,21 +6,32 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Response(ctx *gin.Context, httpStatus int, code int, data gin.H, msg string) {
-	ctx.JSON(httpStatus, gin.H{
+func response(c *gin.Context, httpStatus int, code int64, data gin.H, msg string) {
+	c.JSON(httpStatus, gin.H{
 		"code": code,
 		"data": data,
 		"msg":  msg,
 	})
 }
 
-func Success(ctx *gin.Context, data gin.H, msg string) {
-	Response(ctx, http.StatusOK, 200, data, msg)
+func Success(c *gin.Context, data gin.H, msg string) {
+	response(c, http.StatusOK, 200, data, msg)
 }
 
-func Fail(ctx *gin.Context, code int, data gin.H) {
+func SuccessMsg(c *gin.Context, code int64) {
 	// TODO:
 	msg := ""
 
-	Response(ctx, http.StatusOK, code, data, msg)
+	response(c, http.StatusOK, code, nil, msg)
+}
+
+func Fail(c *gin.Context, code int64, data gin.H) {
+	// TODO:
+	msg := ""
+
+	response(c, http.StatusOK, code, data, msg)
+}
+
+func FailValidateeMsg(c *gin.Context, msg string) {
+	response(c, http.StatusOK, 401, nil, msg)
 }

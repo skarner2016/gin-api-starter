@@ -21,3 +21,19 @@ func TestTest(t *testing.T) {
 
 	fmt.Println(w.Body.String())
 }
+
+func TestGetUser(t *testing.T) {
+	router := router.SetupRouter()
+
+	// uri := "/test/user?id=12&name=abc"
+	uri := "/test/user?id=10000&name=abc"
+	// uri := "/test/user?id=10000"
+	// uri := "/test/user"
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", uri, nil)
+	router.ServeHTTP(w, req)
+	assert.Equal(t, 200, w.Code)
+
+	fmt.Println(w.Body.String())
+}
