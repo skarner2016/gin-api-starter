@@ -15,5 +15,5 @@
 # vendor/
 
 app.toml
-storage/*.log
-storage/*.log.gz
+storage/logs/*.log
+storage/logs/*.log.gz
