@@ -111,7 +111,10 @@ func GetLogger(instance Instance) *zap.SugaredLogger {
 		Setup()
 	}
 
-	sugaredLogger, _ := InstanceMap[instance]
+	sugaredLogger, ok := InstanceMap[instance]
+	if !ok {
+		panic(fmt.Sprintf("get logger error:%s", instance))
+	}
 
 	return sugaredLogger
 }

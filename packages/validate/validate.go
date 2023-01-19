@@ -1,8 +1,7 @@
 package validate
 
 import (
-	"errors"
-	"fmt"
+	"skarner2016/gin-api-starter/packages/translation"
 
 	"github.com/go-playground/validator/v10"
 )
@@ -10,30 +9,22 @@ import (
 var validate *validator.Validate
 
 func GetValidateError(form interface{}) (string, error) {
-	validate := validator.New()
+	validate = validator.New()
 	if err := validate.Struct(form); err != nil {
 		for _, err := range err.(validator.ValidationErrors) {
-			// 字段
-			// fmt.Println(err.Field())
-			//
-			// fmt.Println(err.Tag())
-
-			// TODO: 多语言
-			field := err.Field()
-			tag := err.Tag()
-			msg := fmt.Sprintf("%s-%s", field, tag)
-
-			return msg, errors.New("")
+			// 多语言
+			msg := translation.GetValidateTransError(validate, err)
+			return msg, err
 		}
 	}
 
 	return "", nil
 }
 
-func GetValidate() *validator.Validate {
-	if validate != nil {
-		validate = validator.New()
-	}
+// func GetValidate() *validator.Validate {
+// 	if validate != nil {
+// 		validate = validator.New()
+// 	}
 
-	return validate
-}
+// 	return validate
+// }

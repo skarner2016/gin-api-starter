@@ -7,16 +7,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRouter() *gin.Engine {
+func Setup() *gin.Engine {
 	r := gin.Default()
 
 	r.Use(
+		// gin.Logger(),
+		// gin.Recovery(),
+
 		// middleware.CORSMiddleware(),
 		middleware.RecoveryMiddleware(),
+		middleware.LoggerMiddleware(),
 	)
-
-	r.Use(gin.Logger())
-	r.Use(gin.Recovery())
 
 	r = setupFileRouter(r)
 

@@ -30,3 +30,13 @@ maxBackup = 5
 localTime = true
 compress = true
 
+[log.gin]
+level = "debug"
+path = "storage/logs"
+file = "gin.log"
+maxSize = 50
+maxAge = 30
+maxBackup = 5
+localTime = true
+compress = true
+

@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+	"skarner2016/gin-api-starter/packages/log"
 	"skarner2016/gin-api-starter/packages/response"
 	"skarner2016/gin-api-starter/packages/validate"
 
@@ -44,6 +45,7 @@ func (con *TestController) User(c *gin.Context) {
 
 	msg, err := validate.GetValidateError(form)
 	if err != nil {
+		log.GetLogger(log.InstanceDefault).Error(msg)
 		response.FailValidateeMsg(c, msg)
 		return
 	}
@@ -53,7 +55,6 @@ func (con *TestController) User(c *gin.Context) {
 	}
 
 	response.Success(c, res, "success")
-	return
 
 	// user := &models.User{}
 	// db := mysql.GetDB(mysql.InstanceDefault)
