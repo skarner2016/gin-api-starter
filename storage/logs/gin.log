@@ -1,2 +1,4 @@
 2023-01-19T18:55:17.312+0800	INFO	middleware/logger.go:23	[GIN] 2023/01/19 - 18:55:17 | 200 |     759.767µs |                 | GET      "/test/user?id=10000&name=abc"
 
+2023-01-19T18:56:09.083+0800	INFO	middleware/logger.go:23	[GIN] 2023/01/19 - 18:56:09 | 200 |     973.672µs |                 | GET      "/test/user?id=10000&name=abc"
+
