@@ -17,10 +17,8 @@ func NewTestController() *TestController {
 }
 
 func (c *TestController) Index(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, gin.H{
-		"code": 200,
-		"msg":  "test",
-		"data": "index",
+	response.Success(ctx, gin.H{
+		"hello": "gin",
 	})
 }
 
@@ -36,7 +34,7 @@ type GetUserParam struct {
 	Name string `form:"name" validate:"required"`
 }
 
-func (con *TestController) User(c *gin.Context) {
+func (con *TestController) GetUser(c *gin.Context) {
 	form := &GetUserParam{}
 	if err := c.ShouldBind(&form); err != nil {
 		response.Fail(c, 400, nil)
@@ -54,7 +52,7 @@ func (con *TestController) User(c *gin.Context) {
 		"form": form,
 	}
 
-	response.Success(c, res, "success")
+	response.Success(c, res)
 
 	// user := &models.User{}
 	// db := mysql.GetDB(mysql.InstanceDefault)
@@ -67,5 +65,34 @@ func (con *TestController) User(c *gin.Context) {
 	// 	"user": user,
 	// }
 
-	// response.Success(ctx, res, "success")
+	// response.Success(ctx, res)
+}
+
+type CreateUserParam struct {
+	// ID   int64  `form:"id" binding:"required,gte=1,lte=999"`
+	// Name string `form:"name" binding:"required"`
+
+	ID   int64  `form:"id" validate:"required,gte=1,lte=999"`
+	Name string `form:"name" validate:"required"`
+}
+
+func (con *TestController) CreateUser(c *gin.Context) {
+	form := &CreateUserParam{}
+	if err := c.ShouldBind(&form); err != nil {
+		response.Fail(c, 400, nil)
+		return
+	}
+
+	msg, err := validate.GetValidateError(form)
+	if err != nil {
+		log.GetLogger(log.InstanceDefault).Error(msg)
+		response.FailValidateeMsg(c, msg)
+		return
+	}
+
+	res := gin.H{
+		"form": form,
+	}
+
+	response.Success(c, res)
 }

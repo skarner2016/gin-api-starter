@@ -14,7 +14,11 @@ func response(c *gin.Context, httpStatus int, code int64, data gin.H, msg string
 	})
 }
 
-func Success(c *gin.Context, data gin.H, msg string) {
+func Success(c *gin.Context, data gin.H) {
+	response(c, http.StatusOK, 200, data, "success")
+}
+
+func SuccessWithMsg(c *gin.Context, data gin.H, msg string) {
 	response(c, http.StatusOK, 200, data, msg)
 }
 

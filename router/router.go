@@ -25,7 +25,8 @@ func Setup() *gin.Engine {
 	{
 		testController := controller.NewTestController()
 		test.GET("", testController.Index)
-		test.GET("/user", testController.User)
+		test.GET("/user", testController.GetUser)
+		test.POST("/user", testController.CreateUser)
 	}
 
 	return r
