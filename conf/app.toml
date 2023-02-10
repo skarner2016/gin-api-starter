@@ -1,4 +1,6 @@
 appName = "gin-api-starter"
+# appPath = "/Users/hyd/workspace/skarner2016/gin-api-starter"
+appPath = "/workspace/gin-api-starter"
 addr="0.0.0.0:8008"
 mode="debug"
 
@@ -20,7 +22,7 @@ port = 6379
 pass = ""
 db = 0
 
-[log.default]
+[log.app]
 level = "debug"
 path = "storage/logs"
 file = "default.log"

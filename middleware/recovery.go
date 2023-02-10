@@ -10,7 +10,7 @@ func RecoveryMiddleware() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		defer func() {
 			if err := recover(); err != nil {
-				log.GetLogger(log.InstanceDefault).Error(err)
+				log.GetLogger(log.InstanceApp).Error(err)
 			}
 		}()
 

@@ -13,13 +13,17 @@ func TestSetUp(t *testing.T) {
 	config.Setup()
 
 	log.Setup()
+}
 
-	// logger := log.GetLogger(log.InstanceDefault)
-	// fmt.Println(fmt.Sprintf("%+v", logger))
-	log.GetLogger(log.InstanceDefault).Debug(time.Now().String())
+func TestWriteLogs(t *testing.T) {
+	config.Setup()
+
+	log.Setup()
+
+	log.GetLogger(log.InstanceApp).Debug(time.Now().String())
 
 	wg := &sync.WaitGroup{}
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 1000; i++ {
 		wg.Add(1)
 		go WriteLog(wg, i)
 	}
@@ -29,8 +33,8 @@ func TestSetUp(t *testing.T) {
 }
 
 func WriteLog(wg *sync.WaitGroup, i int) {
-	for j := 0; j < 1000; j++ {
-		log.GetLogger(log.InstanceDefault).Debugf("%d-%d-%s", i, j, time.Now().Local().String())
+	for j := 0; j < 500; j++ {
+		log.GetLogger(log.InstanceApp).Debugf("%d-%d-%s", i, j, time.Now().Local().String())
 		time.Sleep(50 * time.Millisecond)
 	}
 	wg.Done()

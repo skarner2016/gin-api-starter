@@ -2,10 +2,7 @@ package log
 
 import (
 	"fmt"
-	"path"
-	"runtime"
 	"skarner2016/gin-api-starter/packages/config"
-	"strings"
 
 	"github.com/natefinch/lumberjack"
 	"go.uber.org/zap"
@@ -15,6 +12,8 @@ import (
 var InstanceMap map[Instance]*zap.SugaredLogger
 
 func Setup() {
+	appPath := config.APPConfig.GetString("appPath")
+
 	confMap := make(map[Instance]*LogConf, 0)
 	if err := config.APPConfig.UnmarshalKey("log", &confMap); err != nil {
 		panic(fmt.Sprintf("parse log config error:%v", err))
@@ -22,12 +21,12 @@ func Setup() {
 
 	InstanceMap = make(map[Instance]*zap.SugaredLogger, 0)
 	for i, conf := range confMap {
-		InstanceMap[i] = logInit(i, conf)
+		InstanceMap[i] = logInit(i, conf, appPath)
 	}
 }
 
-func logInit(i Instance, conf *LogConf) *zap.SugaredLogger {
-	logFile := getLogFile(conf)
+func logInit(i Instance, conf *LogConf, appPath string) *zap.SugaredLogger {
+	logFile := fmt.Sprintf("%s/%s/%s", appPath, conf.Path, conf.File)
 	writeSyncer := getWriter(conf, logFile)
 	encoder := getEncoder()
 	level := getLogLevel(conf.Level)
@@ -36,31 +35,6 @@ func logInit(i Instance, conf *LogConf) *zap.SugaredLogger {
 	logger := zap.New(core, zap.AddCaller())
 
 	return logger.Sugar()
-}
-
-func getLogFile(conf *LogConf) string {
-	logFile := ""
-	if strings.HasPrefix(conf.Path, "/") {
-		// 绝对路径
-		logFile = fmt.Sprintf("%s/%s", conf.Path, conf.File)
-	} else {
-		// 相对路径 /../../storage/
-		currentDir := getCurrentDir()
-		logFile = fmt.Sprintf("%s/../../%s/%s", currentDir, conf.Path, conf.File)
-	}
-
-	fmt.Println("logfile: " + logFile)
-
-	return logFile
-}
-
-func getCurrentDir() string {
-	_, filename, _, ok := runtime.Caller(0)
-	if !ok {
-		panic("No caller information")
-	}
-
-	return path.Dir(filename)
 }
 
 func getWriter(conf *LogConf, logFile string) zapcore.WriteSyncer {

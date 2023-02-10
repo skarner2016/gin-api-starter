@@ -43,7 +43,7 @@ func (con *TestController) GetUser(c *gin.Context) {
 
 	msg, err := validate.GetValidateError(form)
 	if err != nil {
-		log.GetLogger(log.InstanceDefault).Error(msg)
+		log.GetLogger(log.InstanceApp).Error(msg)
 		response.FailValidateeMsg(c, msg)
 		return
 	}
@@ -85,7 +85,7 @@ func (con *TestController) CreateUser(c *gin.Context) {
 
 	msg, err := validate.GetValidateError(form)
 	if err != nil {
-		log.GetLogger(log.InstanceDefault).Error(msg)
+		log.GetLogger(log.InstanceApp).Error(msg)
 		response.FailValidateeMsg(c, msg)
 		return
 	}

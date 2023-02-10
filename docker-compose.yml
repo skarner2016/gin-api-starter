@@ -1,8 +1,12 @@
 version: '3'
 services:
   gin-app:
-    container_name: gin-app
+    container_name: gin-api-starter
+    image: gin-api-starter
     build: ./
     ports:
       - 8008:8008
+    volumes:
+      - ./conf:/workspace/conf
+      - ./storage:/workspace/storage
     restart: always

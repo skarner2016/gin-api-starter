@@ -14,6 +14,6 @@ type LogConf struct {
 }
 
 const (
-	InstanceDefault Instance = "default"
-	InstanceGin     Instance = "gin"
+	InstanceApp Instance = "app"
+	InstanceGin Instance = "gin"
 )
