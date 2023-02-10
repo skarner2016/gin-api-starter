@@ -14,6 +14,7 @@ RUN go mod download
 COPY . .
 RUN go build -o ./app
 
+FROM alpine:latest
 
 RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
 
