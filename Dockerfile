@@ -12,7 +12,7 @@ COPY go.sum .
 RUN go mod download
 
 COPY . .
-RUN go build -o ./app ./src/main.go
+RUN go build -o ./app
 
 
 RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
